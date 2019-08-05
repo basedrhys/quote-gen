@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
-const port = 3000
 const path = require('path')
 
 app.get('/', function(request, response){
-    response.sendFile(path.resolve(__dirname, 'api_ui.html'));
+    response.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}...`);
+});

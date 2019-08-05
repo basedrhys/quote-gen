@@ -77,18 +77,15 @@
 
   <div id="navbarBasicExample" class="navbar-menu is-active">
     <div class="navbar-start">
-
-
       <div class="navbar-item">
-        Generate custom text from an AI using GPT-2 (using the 117M default model)
+        Generate custom quotes from an AI using GPT-2. Note that the authors shown did NOT say the generated quote.
       </div>
-
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item is-hidden-touch">
         <div class="buttons">
-          <a class="button is-light" href="https://github.com/minimaxir/gpt-2-cloud-run" target="_blank">
+          <a class="button is-light" href="https://github.com/basedrhys/quote-gen" target="_blank">
             <span class="icon">
               <i class="fab fa-lg fa-github"></i>
             </span><span>GitHub</span>
@@ -106,16 +103,39 @@
         <div class="column is-narrow" style="width: 250px;">
           <form id="gen-form">
             <div class="field">
-              <label class="label">Text Prompt</label>
-              <div class="control">
-                <textarea id="prefix" class="textarea" type="text" placeholder="Donald Trump" rows="2"></textarea>
+              <label class="label">Quote Topic</label>
+              <div class="select">
+                <!-- ['life', 'love','inspirational', 'humor', 
+                  'death', 'art', 'education', 'books', 'change', 'time', 
+                  'beauty', 'god', 'happiness', 'children', 'work', 'faith', 
+                  'funny', 'good', 'family', 'friendship'] -->
+                <select id="topic">
+                  <option value="life">Life</option>
+                  <option value="love">Love</option>
+                  <option value="inspirational">Inspirational</option>
+                  <option value="humor">Humor</option>
+                  <option value="death">Death</option>
+                  <option value="art">Art</option>
+                  <option value="education">Education</option>
+                  <option value="books">Books</option>
+                  <option value="change">Change</option>
+                  <option value="time">Time</option>
+                  <option value="beauty">Beauty</option>
+                  <option value="god">God</option>
+                  <option value="happiness">Happiness</option>
+                  <option value="children">Children</option>
+                  <option value="work">Work</option>
+                  <option value="faith">Faith</option>
+                  <option value="funny">Funny</option>
+                  <option value="family">Family</option>
+                </select>
               </div>
-              <p class="help">Starts the generated text with the specified text. <em>(Optional: max 500 characters)</em></p>
+              <!-- <p class="help">Starts the generated text with the specified text. <em>(Optional: max 500 characters)</em></p> -->
             </div>
             <div class="field">
               <label class="label">Generated Text Length</label>
               <div class="control">
-                <input id="length" class="input" type="text" placeholder="Text input" value="100">
+                <input id="length" class="input" type="text" placeholder="Text input" value="70">
               </div>
               <p class="help">Length of the text in tokens to generate. <em>(max: 1023)</em></p>
             </div>
@@ -160,7 +180,7 @@
                 </span><span>Clear Texts</span</button> </span> </div> </div> <div id="model-output" class="column">
                   <p id="tutorial" class="subtitle"><em>Generated text will appear here!
                       Use the form to configure GPT-2 and press <strong>Generate Text</strong>
-                      to get your own text!
+                      to get your own quote!
                     </em></p>
           </div>
         </div>
@@ -169,7 +189,7 @@
 
   </section>
 
-  <footer class="footer">
+  <!-- <footer class="footer">
     <div class="content has-text-centered">
       <p>
         Made using <a href="https://github.com/minimaxir/gpt-2-simple" target="_blank"><strong>gpt-2-simple</strong></a>
@@ -179,7 +199,7 @@
         is licensed <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
       </p>
     </div>
-  </footer>
+  </footer> -->
 
 
 </body>
@@ -192,6 +212,8 @@
 </script>
 
 <script type="text/javascript">
+  var genTopic;
+
   $(function () {
     $('#gen-form').submit(function (e) {
       e.preventDefault();
@@ -215,7 +237,15 @@
           }
 
           var gentext = gentext.replace(/\n\n/g, "<div><br></div>").replace(/\n/g, "<div></div>");
-          var html = '<div class=\"gen-box\">' + gentext + '</div><div class="gen-border"></div>';
+
+          gentext = gentext.split("_QUOTE_")[1] // Strip off the prefix
+
+          gentext = gentext.split("_END_")[0] // Strip off everything after the end of this quote
+
+          var split = gentext.split("_AUTHOR_") // Split it between the quote and the author
+
+          var html = '<div class=\"gen-box\"><h6><strong>' + genTopic + 
+            '</strong></h6>' + split[0] + '<br>-' + split[1] + '</div><div class="gen-border"></div>';
           $(html).appendTo('#model-output').hide().fadeIn("slow");
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -248,8 +278,8 @@
       inputs[$(this).attr('id')] = $(this).val();
     });
 
-    inputs['truncate'] = '_END'
-    inputs['include_prefix'] = false
+    genTopic = $('#topic option:selected').text();
+    inputs['prefix'] = "_TOPIC_ " + $('#topic').val() + "_QUOTE_"
     return inputs;
   }
 
