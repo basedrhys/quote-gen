@@ -1,4 +1,4 @@
 .vscode
-backend/checkpoint
+backend/train/checkpoint
 .DS_STORE
 web-ui/node_modules
