@@ -15,6 +15,8 @@ The API is hosted using Google Cloud Run, Google's Docker container serving serv
 
 The dataset was sourced from the [500k Quote Dataset](https://github.com/ShivaliGoel/Quotes-500K), with a little pre-processing to get it into the right format.
 
+Follow the steps outlined in the [training instructions](./backend/train/README.md)
+
 [Quote Dataset](https://drive.google.com/file/d/18fUCkPeVkC3MiOji5K8rzU9jXvZfC1Im/view?usp=sharing)
 
 [Colab Notebook](https://colab.research.google.com/drive/1dy1lj6uFmgvsiaHxjNwy3A1wI9W0PmwW)
