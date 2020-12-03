@@ -189,8 +189,8 @@
     $('#gen-form').submit(function (e) {
       e.preventDefault();
       $.ajax({
-        type: "POST",
-        url: "https://gpt2-tmsaobdy7a-uc.a.run.app",
+        type: "GET",
+        url: "https://postman-echo.com/get?foo1=bar1&foo2=bar2",
         dataType: "json",
         data: JSON.stringify(getInputValues()),
         beforeSend: function (data) {
