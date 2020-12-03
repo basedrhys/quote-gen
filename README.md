@@ -1,11 +1,11 @@
 # AI-Powered Quote Generator
-Novel quote generator using GPT-2. The app is currently hosted [here](https://gpt2-quote.appspot.com/), feel free to play around!.
+Novel quote generator using GPT-2. The app is currently hosted [here](https://basedrhys.github.io/quote-gen), feel free to play around!.
 
 This project was based off minimaxir's [gpt-2-cloud-run](https://github.com/minimaxir/gpt-2-cloud-run) project.
 
 ## Frontend
 
-The web interface is based off the UI in minimaxir's repo. It's hosted using Google App Engine which works great for small project-showoff apps with its automatic scaling (down to 0).
+The web interface is based off the UI in minimaxir's repo. It's hosted using Github pages which is great for simple static hosting.
 
 ## Backend
 
