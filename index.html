@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <style>
   html,
   body {
@@ -223,7 +222,8 @@
           $('#generate-text').removeClass("is-loading");
           $('#generate-text').prop("disabled", false);
           $('#tutorial').remove();
-          var html = '<div class="gen-box warning">There was an error generating the text! Please try again!</div><div class="gen-border"></div>';
+          var html = '<div class="gen-box warning">There was an error generating the text! Please try again. Note that you may need to ' + 
+            'use a different browser/incognito mode, as some browsers will throw a CORS error for the API request.</div><div class="gen-border"></div>';
           $(html).appendTo('#model-output').hide().fadeIn("slow");
         }
       });
